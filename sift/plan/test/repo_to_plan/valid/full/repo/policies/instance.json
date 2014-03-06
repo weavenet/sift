@@ -1,0 +1,10 @@
+[
+  {
+    "source" : "example_sift_instance",
+    "verifications" : {},
+    "filters": {},
+    "reports" : {
+      "equals" : ["i-01", "i-02", "i-03"]
+    }
+  }
+]

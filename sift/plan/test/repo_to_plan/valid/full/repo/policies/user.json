@@ -1,0 +1,58 @@
+[
+  {
+    "source" : "sample_sift_user",
+    "scope" : "prod",
+    "filters" : {},
+    "verifications" : {
+      "mfa" : {
+        "equals" : ["false"]
+      }
+    },
+    "reports" : {}
+  },
+  {
+    "source" : "sample_sift_user",
+    "scope" : "preprod",
+    "filters" : {},
+    "verifications" : {
+      "mfa" : {
+        "equals" : ["false"]
+      }
+    },
+    "reports" : {}
+  },
+  {
+    "source" : "sample_sift_user",
+    "scope" : "preprod",
+    "filters" : { "user": "preprod_user" },
+    "verifications" : {},
+    "reports" : {
+      "equals" : "user1"
+    }
+  },
+  {
+    "source" : "sample_sift_user",
+    "scope" : "prod",
+    "filters" : {},
+    "verifications" : {},
+    "reports" : {
+      "equals" : { "Fn::List" : ["users"] }
+    }
+  },
+  {
+    "source" : "sample_sift_user",
+    "scope" : "preprod",
+    "filters" : {},
+    "reports" : {
+      "equals" : { "Fn::ListSub" : ["users", "preprod"] }
+    }
+  },
+  {
+    "source" : "sample_sift_user",
+    "scope" : "prod",
+    "filters" : {},
+    "reports" : {
+      "equals" : { "Fn::ListOnly" : ["users", "prod"] }
+    }
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "source" : "test-aws_iam_user",
+    "reports" : {
+      "less_than" : ["5"]
+    }
+  },
+  {
+    "source" : "test-aws_iam_user",
+    "reports" : {
+      "equals" : ["user1", "user2"]
+    }
+  },
+  {
+    "source" : "test-aws_iam_user",
+    "reports" : {
+      "equals" : { "Fn::List" : ["users"] }
+    }
+  },
+  {
+    "source" : "test-aws_iam_user",
+    "reports" : {
+      "equals" : { "Fn::ListSub" : ["users", "admin"] }
+    }
+  },
+  {
+    "source" : "test-aws_iam_user",
+    "filters" : {
+      "user" : "admin"
+    },
+    "reports" : {
+      "equals" : { "Fn::ListOnly" : ["users", "admin"] }
+    }
+  }
+]

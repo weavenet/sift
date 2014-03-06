@@ -1,0 +1,122 @@
+[
+    {
+        "account": {
+            "key": "abc",
+            "name": "example",
+            "secret": "123"
+        },
+        "provider": {
+            "arg1": "1",
+            "arg2": "3",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance": {
+                "include" : [],
+                "exclude" : [],
+                "attributes" : {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "abc",
+            "name": "example",
+            "secret": "123"
+        },
+        "provider": {
+            "arg1": "1",
+            "arg2": "4",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance": {
+                "include" : [],
+                "exclude" : [],
+                "attributes" : {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "abc",
+            "name": "example",
+            "secret": "123"
+        },
+        "provider": {
+            "arg1": "2",
+            "arg2": "3",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance": {
+                "include" : [],
+                "exclude" : [],
+                "attributes" : {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "abc",
+            "name": "example",
+            "secret": "123"
+        },
+        "provider": {
+            "arg1": "2",
+            "arg2": "4",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance": {
+                "include" : [],
+                "exclude" : [],
+                "attributes" : {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    }
+]

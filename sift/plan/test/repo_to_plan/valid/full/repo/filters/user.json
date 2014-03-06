@@ -1,0 +1,7 @@
+{
+  "preprod_user" : {
+    "include" : ["user1"],
+    "exclude" : [],
+    "attributes" : { }
+  }
+}

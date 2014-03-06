@@ -1,0 +1,7 @@
+{
+  "credentials" : {
+    "key"    : "abc",
+    "secret" : "123"
+  },
+  "scope" : ["preprod", "special"]
+}

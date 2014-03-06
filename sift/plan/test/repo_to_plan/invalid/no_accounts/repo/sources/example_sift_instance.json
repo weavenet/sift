@@ -1,0 +1,11 @@
+{
+  "active" : {
+    "location" : ["1"]
+  },
+  "inactive" : {
+    "location" : ["2", "3"]
+  },
+  "default" : {
+    "location" : ["1", "2", "3"]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "bucket1" : {
+    "include" : ["bucket1"],
+    "exclude" : [],
+    "attributes" : {}
+  },
+  "object2" : {
+    "include" : ["object2"],
+    "exclude" : [],
+    "attributes" : {}
+  },
+  "public" : {
+    "include" : [],
+    "exclude" : [],
+    "attributes" : {
+      "public" : {
+        "equals" : ["true"]
+      }
+    }
+  }
+}

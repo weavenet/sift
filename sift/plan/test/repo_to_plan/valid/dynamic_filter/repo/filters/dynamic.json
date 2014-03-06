@@ -1,0 +1,7 @@
+{
+  "dynamic" : {
+    "exclude" : [],
+    "include" : { "Fn::List" : ["list1"] },
+    "attributes" : { }
+  }
+}

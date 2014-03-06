@@ -1,0 +1,38 @@
+[
+  {
+    "source" : "test-aws_s3_bucket",
+    "filters" : {
+      "bucket" : "bucket1"
+    },
+    "reports" : {
+      "equals" : ["bucket1"]
+    }
+  },
+  {
+    "source" : "test-aws_s3_bucket-object",
+    "filters" : {
+      "bucket" : "bucket1"
+    },
+    "reports" : {
+      "equals" : ["object1", "object2", "object3"]
+    }
+  },
+  {
+    "source" : "test-aws_s3_bucket-object",
+    "filters" : {
+      "bucket-object" : "object2"
+    },
+    "reports" : {
+      "equals" : ["object2"]
+    }
+  },
+  {
+    "source" : "test-aws_s3_bucket-object",
+    "filters" : {
+      "bucket-object" : "public"
+    },
+    "reports" : {
+      "equals" : ["object2", "object4"]
+    }
+  }
+]

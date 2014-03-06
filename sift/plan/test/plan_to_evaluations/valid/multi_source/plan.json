@@ -1,0 +1,49 @@
+{
+    "accounts": {
+        "example": {
+            "preprod": {
+                "credentials": {
+                    "key": "abc",
+                    "secret": "123"
+                },
+                "scope": [
+                    "default"
+                ]
+            }
+        }
+    },
+    "policies": [
+        {
+            "scope": "",
+            "arguments": "",
+            "source": "example_sift_instance",
+            "filter": {},
+            "verifications": {},
+            "reports": {
+                "equals": [
+                    "i-01",
+                    "i-02",
+                    "i-03"
+                ]
+            }
+        }
+    ],
+    "filters": {},
+    "sources": {
+        "example_sift_instance": {
+            "arguments": {
+                "default": {
+                    "arg1": [
+                        "1",
+                        "2"
+                    ],
+                    "arg2": [
+                        "3",
+                        "4"
+                    ]
+                }
+            }
+        }
+    },
+    "lists": {}
+}

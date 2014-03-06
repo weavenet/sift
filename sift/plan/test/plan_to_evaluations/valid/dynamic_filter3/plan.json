@@ -1,0 +1,83 @@
+{
+    "accounts": {
+        "example": {
+            "preprod": {
+                "credentials": {
+                    "key": "abc",
+                    "secret": "123"
+                },
+                "scope": [
+                    "preprod",
+                    "special"
+                ]
+            }
+        }
+    },
+    "policies": [
+        {
+            "scope": "",
+            "arguments": "",
+            "source": "example_sift_instance",
+            "filters": { "instance": "dynamic" },
+            "verifications": {},
+            "reports": {
+                "equals": [
+                    "i-01",
+                    "i-02",
+                    "i-03"
+                ]
+            }
+        }
+    ],
+    "filters": {
+        "dynamic": {
+            "include": [],
+            "exclude": [],
+            "attributes": {
+                "image": {
+                    "Fn::List": [
+                        "images"
+                    ]
+                }
+            }
+        }
+    },
+    "sources": {
+        "example_sift_instance": {
+            "arguments": {
+                "active": {
+                    "location": [
+                        "1"
+                    ]
+                },
+                "default": {
+                    "location": [
+                        "1",
+                        "2",
+                        "3"
+                    ]
+                },
+                "inactive": {
+                    "location": [
+                        "2",
+                        "3"
+                    ]
+                }
+            }
+        }
+    },
+    "lists": {
+        "images": {
+            "entries": {
+                "1": {
+                    "id": "img-01",
+                    "tags": {}
+                },
+                "2": {
+                    "id": "img-02",
+                    "tags": {}
+                }
+            }
+        }
+    }
+}

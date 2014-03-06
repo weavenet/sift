@@ -1,0 +1,7 @@
+{
+  "credentials" : {
+    "key"    : "888",
+    "secret" : "321"
+  },
+  "scope" : ["prod", "experimental"]
+}

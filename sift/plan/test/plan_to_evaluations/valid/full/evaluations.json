@@ -1,0 +1,513 @@
+[
+    {
+        "account": {
+            "key": "abc",
+            "name": "example",
+            "secret": "123"
+        },
+        "provider": {
+            "location": "1",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "abc",
+            "name": "example",
+            "secret": "123"
+        },
+        "provider": {
+            "location": "2",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "abc",
+            "name": "example",
+            "secret": "123"
+        },
+        "provider": {
+            "location": "3",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "abc",
+            "name": "example",
+            "secret": "123"
+        },
+        "provider": {
+            "location": "1",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "abc",
+            "name": "example",
+            "secret": "123"
+        },
+        "provider": {
+            "location": "2",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "abc",
+            "name": "example",
+            "secret": "123"
+        },
+        "provider": {
+            "location": "3",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "888",
+            "name": "example",
+            "secret": "321"
+        },
+        "provider": {
+            "location": "1",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "888",
+            "name": "example",
+            "secret": "321"
+        },
+        "provider": {
+            "location": "2",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "888",
+            "name": "example",
+            "secret": "321"
+        },
+        "provider": {
+            "location": "3",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "888",
+            "name": "example",
+            "secret": "321"
+        },
+        "provider": {
+            "location": "1",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "888",
+            "name": "example",
+            "secret": "321"
+        },
+        "provider": {
+            "location": "2",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "888",
+            "name": "example",
+            "secret": "321"
+        },
+        "provider": {
+            "location": "3",
+            "name": "sift"
+        },
+        "collection": {
+            "name": "instance"
+        },
+        "filters": {
+            "instance" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "i-01",
+                "i-02",
+                "i-03"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "888",
+            "name": "sample",
+            "secret": "321"
+        },
+        "provider": {
+            "name": "sift"
+        },
+        "collection": {
+            "name": "user"
+        },
+        "filters": {
+            "user" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {
+            "mfa": {
+                "comparison" : ["equals"],
+                "value" : ["true"]
+            }
+        },
+        "reports": {}
+    },
+    {
+        "account": {
+            "key": "123",
+            "name": "sample",
+            "secret": "999"
+        },
+        "provider": {
+            "name": "sift"
+        },
+        "collection": {
+            "name": "user"
+        },
+        "filters": {
+            "user" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {
+            "mfa": {
+                "comparison" : ["equals"],
+                "value" : ["true"]
+            }
+        },
+        "reports": {}
+    },
+    {
+        "account": {
+            "key": "123",
+            "name": "sample",
+            "secret": "999"
+        },
+        "provider": {
+            "name": "sift"
+        },
+        "collection": {
+            "name": "user"
+        },
+        "filters": {
+            "user" : {
+                "include": [
+                    "user1"
+                ],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "user1"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "888",
+            "name": "sample",
+            "secret": "321"
+        },
+        "provider": {
+            "name": "sift"
+        },
+        "collection": {
+            "name": "user"
+        },
+        "filters": {
+            "user" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "1",
+                "another_id"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "123",
+            "name": "sample",
+            "secret": "999"
+        },
+        "provider": {
+            "name": "sift"
+        },
+        "collection": {
+            "name": "user"
+        },
+        "filters": {
+            "user" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "user1",
+                "user3"
+            ]
+        }
+    },
+    {
+        "account": {
+            "key": "888",
+            "name": "sample",
+            "secret": "321"
+        },
+        "provider": {
+            "name": "sift"
+        },
+        "collection": {
+            "name": "user"
+        },
+        "filters": {
+            "user" : {
+                "include": [],
+                "exclude": [],
+                "attributes": {}
+            }
+        },
+        "verifications": {},
+        "reports": {
+            "equals": [
+                "user1",
+                "user2"
+            ]
+        }
+    }
+]

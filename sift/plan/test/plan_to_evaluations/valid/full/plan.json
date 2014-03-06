@@ -1,0 +1,180 @@
+{
+    "accounts": {
+        "example": {
+            "preprod": {
+                "credentials": {
+                    "key": "abc",
+                    "secret": "123"
+                },
+                "scope": [
+                    "preprod",
+                    "special"
+                ]
+            },
+            "prod": {
+                "credentials": {
+                    "key": "888",
+                    "secret": "321"
+                },
+                "scope": [
+                    "prod",
+                    "experimental"
+                ]
+            }
+        },
+        "sample": {
+            "preprod": {
+                "credentials": {
+                    "key": "123",
+                    "secret": "999"
+                },
+                "scope": [
+                    "preprod",
+                    "marketing"
+                ]
+            },
+            "prod": {
+                "credentials": {
+                    "key": "888",
+                    "secret": "321"
+                },
+                "scope": [
+                    "prod",
+                    "customer"
+                ]
+            }
+        }
+    },
+    "policies": [
+        {
+            "scope": "",
+            "arguments": "",
+            "source": "example_sift_instance",
+            "filters": {},
+            "verifications": {},
+            "reports": {
+                "equals": [
+                    "i-01",
+                    "i-02",
+                    "i-03"
+                ]
+            }
+        },
+        {
+            "scope": "prod",
+            "arguments": "",
+            "source": "sample_sift_user",
+            "filters": {},
+            "verifications": {
+                "mfa": {
+                    "comparison" : ["equals"],
+                    "value" : ["true"]
+                }
+            },
+            "reports": {}
+        },
+        {
+            "scope": "preprod",
+            "arguments": "",
+            "source": "sample_sift_user",
+            "filters": {},
+            "verifications": {
+                "mfa": {
+                    "comparison" : ["equals"],
+                    "value" : ["true"]
+                }
+            },
+            "reports": {}
+        },
+        {
+            "scope": "preprod",
+            "arguments": "",
+            "source": "sample_sift_user",
+            "filters": { "user" : "preprod_user" },
+            "verifications": {},
+            "reports": {
+                "equals": "user1"
+            }
+        },
+        {
+            "source" : "sample_sift_user",
+            "scope" : "prod",
+            "verifications" : {},
+            "reports" : {
+                "equals" : { "Fn::List" : ["users"] }
+            }
+        },
+        {
+            "source" : "sample_sift_user",
+            "scope" : "preprod",
+            "reports" : {
+                "equals" : { "Fn::ListSub" : ["users", "preprod"] }
+            }
+        },
+        {
+          "source" : "sample_sift_user",
+          "scope" : "prod",
+          "reports" : {
+            "equals" : { "Fn::ListOnly" : ["users", "prod"] }
+          }
+        }
+    ],
+    "filters": {
+        "preprod_user": {
+            "include": [
+                "user1"
+            ],
+            "exclude": [],
+            "attributes": {}
+        }
+    },
+    "sources": {
+        "example_sift_instance": {
+            "arguments": {
+                "active": {
+                    "location": [
+                        "1"
+                    ]
+                },
+                "default": {
+                    "location": [
+                        "1",
+                        "2",
+                        "3"
+                    ]
+                },
+                "inactive": {
+                    "location": [
+                        "2",
+                        "3"
+                    ]
+                }
+            }
+        },
+        "sample_sift_user": {
+            "arguments": {
+                "default": {}
+            }
+        }
+    },
+    "lists": {
+        "users": {
+            "entries": {
+                "1": {
+                    "id": "1",
+                    "tags": {
+                        "preprod": "user1",
+                        "prod": "user1"
+                    }
+                },
+                "another_id": {
+                    "id": "another_id",
+                    "tags": {
+                        "preprod": "user3",
+                        "prod": "user2"
+                    }
+                }
+            }
+        }
+    }
+}
