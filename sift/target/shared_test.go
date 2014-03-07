@@ -1,7 +1,7 @@
 package target
 
 import (
-  "github.com/siftproject/sift/sift/state"
+  "github.com/brettweavnet/sift/sift/state"
 )
 
 var data1 = map[string][]string{"image_id": []string{"img-01"}, "groups": []string{"web", "admin"}}

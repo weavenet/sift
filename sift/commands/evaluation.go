@@ -4,7 +4,7 @@ import (
   "encoding/json"
   log "github.com/cihub/seelog"
   "github.com/codegangsta/cli"
-  "github.com/siftproject/sift/sift/engine"
+  "github.com/brettweavnet/sift/sift/engine"
   "os"
   "strconv"
 )

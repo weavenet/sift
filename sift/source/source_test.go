@@ -2,7 +2,7 @@ package source
 
 import (
   "encoding/json"
-  "github.com/siftproject/sift/sift/state"
+  "github.com/brettweavnet/sift/sift/state"
   "io"
   "io/ioutil"
   "net/http"

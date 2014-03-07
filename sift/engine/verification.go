@@ -3,7 +3,7 @@ package engine
 import (
   "fmt"
   log "github.com/cihub/seelog"
-  "github.com/siftproject/sift/sift/target"
+  "github.com/brettweavnet/sift/sift/target"
 )
 
 type verification struct {

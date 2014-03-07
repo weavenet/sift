@@ -35,7 +35,7 @@ skeleton with the necessary directories for you to get started.
 
 Clone the repo with
 
-   git clone git@github.com:siftproject/sift-repo.git
+   git clone git@github.com:brettweavnet/sift-repo.git
 
 Update the credentials
 

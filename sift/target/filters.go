@@ -1,7 +1,7 @@
 package target
 
 import (
-  "github.com/siftproject/sift/sift/state"
+  "github.com/brettweavnet/sift/sift/state"
 )
 
 type attributeList map[string]map[string][]string

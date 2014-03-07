@@ -5,7 +5,7 @@ import (
   "encoding/json"
   "fmt"
   log "github.com/cihub/seelog"
-  "github.com/siftproject/sift/sift/state"
+  "github.com/brettweavnet/sift/sift/state"
   "io/ioutil"
   "net/http"
 )

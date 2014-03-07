@@ -3,7 +3,7 @@ package engine
 import (
   "fmt"
   log "github.com/cihub/seelog"
-  "github.com/siftproject/sift/sift/util"
+  "github.com/brettweavnet/sift/sift/util"
 )
 
 type evaluation struct {

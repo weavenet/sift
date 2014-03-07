@@ -2,7 +2,7 @@ package target
 
 import (
   "fmt"
-  "github.com/siftproject/sift/sift/state"
+  "github.com/brettweavnet/sift/sift/state"
   "reflect"
   "testing"
 )

@@ -3,8 +3,8 @@ package engine
 import (
   "fmt"
   log "github.com/cihub/seelog"
-  "github.com/siftproject/sift/sift/source"
-  "github.com/siftproject/sift/sift/state"
+  "github.com/brettweavnet/sift/sift/source"
+  "github.com/brettweavnet/sift/sift/state"
   "reflect"
   "sort"
 )
