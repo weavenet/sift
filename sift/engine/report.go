@@ -1,8 +1,8 @@
 package engine
 
 import (
-  log "github.com/cihub/seelog"
   "github.com/brettweavnet/sift/sift/target"
+  log "github.com/cihub/seelog"
 )
 
 type report struct {

@@ -25,14 +25,5 @@
     "reports" : {
       "equals" : ["object2"]
     }
-  },
-  {
-    "source" : "test-aws_s3_bucket-object",
-    "filters" : {
-      "bucket-object" : "public"
-    },
-    "reports" : {
-      "equals" : ["object2", "object4"]
-    }
   }
 ]

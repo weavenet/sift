@@ -2,9 +2,9 @@ package engine
 
 import (
   "fmt"
-  log "github.com/cihub/seelog"
   "github.com/brettweavnet/sift/sift/source"
   "github.com/brettweavnet/sift/sift/state"
+  log "github.com/cihub/seelog"
   "reflect"
   "sort"
 )

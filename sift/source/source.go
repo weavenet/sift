@@ -4,8 +4,8 @@ import (
   "bytes"
   "encoding/json"
   "fmt"
-  log "github.com/cihub/seelog"
   "github.com/brettweavnet/sift/sift/state"
+  log "github.com/cihub/seelog"
   "io/ioutil"
   "net/http"
 )

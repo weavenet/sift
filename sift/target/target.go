@@ -1,8 +1,8 @@
 package target
 
 import (
-  log "github.com/cihub/seelog"
   "github.com/brettweavnet/sift/sift/state"
+  log "github.com/cihub/seelog"
 )
 
 type Target struct {

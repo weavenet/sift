@@ -2,9 +2,9 @@ package command
 
 import (
   "encoding/json"
+  "github.com/brettweavnet/sift/sift/engine"
   log "github.com/cihub/seelog"
   "github.com/codegangsta/cli"
-  "github.com/brettweavnet/sift/sift/engine"
   "os"
   "strconv"
 )

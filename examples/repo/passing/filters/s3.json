@@ -8,14 +8,5 @@
     "include" : ["object2"],
     "exclude" : [],
     "attributes" : {}
-  },
-  "public" : {
-    "include" : [],
-    "exclude" : [],
-    "attributes" : {
-      "public" : {
-        "equals" : ["true"]
-      }
-    }
   }
 }

@@ -1,8 +1,8 @@
 package main
 
 import (
-  "github.com/codegangsta/cli"
   "github.com/brettweavnet/sift/sift/commands"
+  "github.com/codegangsta/cli"
   "os"
 )
 

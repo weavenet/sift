@@ -2,10 +2,10 @@ package command
 
 import (
   "encoding/json"
-  log "github.com/cihub/seelog"
-  "github.com/codegangsta/cli"
   "github.com/brettweavnet/sift/sift/engine"
   "github.com/brettweavnet/sift/sift/plan"
+  log "github.com/cihub/seelog"
+  "github.com/codegangsta/cli"
   "os"
   "strconv"
   "time"

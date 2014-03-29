@@ -2,8 +2,8 @@ package engine
 
 import (
   "fmt"
-  log "github.com/cihub/seelog"
   "github.com/brettweavnet/sift/sift/target"
+  log "github.com/cihub/seelog"
 )
 
 type verification struct {
