@@ -1,10 +1,10 @@
 package main
 
 import (
+  "bytes"
+  "encoding/json"
   "flag"
   "fmt"
-  //"github.com/mitchellh/goamz/aws"
-  //"github.com/mitchellh/goamz/ec2"
   "log"
   "net/http"
 )
@@ -12,7 +12,6 @@ import (
 var server *http.Server
 
 var credData string = `["access_key_id", "secret_access_key"]`
-
 var ec2ArgData string = `["region"]`
 var ec2InstanceStateData string = `
 [
@@ -27,8 +26,15 @@ var ec2InstanceStateData string = `
 ]
 `
 
+type stateRequest struct {
+  Credentials map[string]string `json:"credentials"`
+  Arguments   map[string]string `json:"arguments"`
+  ParentIds   []string          `json:"parent_ids"`
+}
+
 func setup(port string) {
   mux := http.NewServeMux()
+
   mux.HandleFunc("/accounts/aws/credentials", func(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, credData)
   })
@@ -36,7 +42,18 @@ func setup(port string) {
     fmt.Fprintf(w, ec2ArgData)
   })
   mux.HandleFunc("/accounts/aws/providers/ec2/collections/instance/state", func(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, ec2InstanceStateData)
+    body := r.Body
+    defer r.Body.Close()
+
+    buf := new(bytes.Buffer)
+    buf.ReadFrom(body)
+
+    sr := stateRequest{}
+    err := json.Unmarshal(buf.Bytes(), &sr)
+    if err != nil {
+      fmt.Fprintf(w, "error")
+    }
+    fmt.Fprintf(w, fmt.Sprintf("%v", sr))
   })
   log.Fatal(http.ListenAndServe(":"+port, mux))
 }
