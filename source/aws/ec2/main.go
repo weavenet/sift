@@ -5,6 +5,7 @@ import (
   "encoding/json"
   "flag"
   "fmt"
+  "github.com/mitchellh/goamz/aws"
   "log"
   "net/http"
 )
@@ -51,9 +52,13 @@ func setup(port string) {
     sr := stateRequest{}
     err := json.Unmarshal(buf.Bytes(), &sr)
     if err != nil {
-      fmt.Fprintf(w, "error")
+      http.Error(w, err.Error(), 400)
     }
-    fmt.Fprintf(w, fmt.Sprintf("%v", sr))
+    resp, err := processRequest(sr)
+    if err != nil {
+      http.Error(w, err.Error(), 400)
+    }
+    fmt.Fprintf(w, resp)
   })
   log.Fatal(http.ListenAndServe(":"+port, mux))
 }
@@ -62,4 +67,21 @@ func main() {
   port := flag.String("port", "32786", "port to listen on")
   flag.Parse()
   setup(*port)
+}
+
+func processRequest(sr stateRequest) (string, error) {
+  accessKey := sr.Credentials["access_key_id"]
+  secretKey := sr.Credentials["secret_access_key"]
+  region := sr.Arguments["region"]
+
+  if accessKey == "" || secretKey == "" {
+    return "", fmt.Errorf("access_key_id or secret_access_key not specified")
+  }
+  auth := aws.Auth{accessKey, secretKey, ""}
+
+  if _, ok := aws.Regions[region]; !ok {
+    return "", fmt.Errorf("invalid or unspecified region")
+  }
+  awsRegion := aws.Regions[region]
+  return fmt.Sprintf("%s %s", auth, awsRegion), nil
 }
