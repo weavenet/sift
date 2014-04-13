@@ -11,7 +11,7 @@ import (
 )
 
 func serveAwsEc2SecurityGroup(mux *http.ServeMux) {
-  mux.HandleFunc("/accounts/aws/providers/ec2/collections/security_group/state", func(w http.ResponseWriter, r *http.Request) {
+  mux.HandleFunc("/accounts/aws/providers/ec2/collections/securitygroup/state", func(w http.ResponseWriter, r *http.Request) {
     body := r.Body
     defer r.Body.Close()
 

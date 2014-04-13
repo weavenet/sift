@@ -18,7 +18,7 @@ type stateRequest struct {
 }
 
 func main() {
-  port := flag.String("port", "32786", "port to listen on")
+  port := flag.String("port", "", "port to listen on")
   mux := http.NewServeMux()
   flag.Parse()
   serveAws(mux)
