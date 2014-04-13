@@ -10,8 +10,8 @@ import (
   "github.com/mitchellh/goamz/ec2"
 )
 
-func serveAwsEc2Instance(mux *http.ServeMux) {
-  mux.HandleFunc("/accounts/aws/providers/ec2/collections/instance/state", func(w http.ResponseWriter, r *http.Request) {
+func serveAwsEc2SecurityGroup(mux *http.ServeMux) {
+  mux.HandleFunc("/accounts/aws/providers/ec2/collections/security_group/state", func(w http.ResponseWriter, r *http.Request) {
     body := r.Body
     defer r.Body.Close()
 
@@ -23,7 +23,7 @@ func serveAwsEc2Instance(mux *http.ServeMux) {
     if err != nil {
       http.Error(w, err.Error(), 400)
     }
-    resp, err := processEc2InstanceRequest(sr)
+    resp, err := processEc2SecurityGroupRequest(sr)
     if err != nil {
       http.Error(w, err.Error(), 400)
     }
@@ -31,7 +31,7 @@ func serveAwsEc2Instance(mux *http.ServeMux) {
   })
 }
 
-func processEc2InstanceRequest(sr stateRequest) (string, error) {
+func processEc2SecurityGroupRequest(sr stateRequest) (string, error) {
   accessKey := sr.Credentials["access_key_id"]
   secretKey := sr.Credentials["secret_access_key"]
   region := sr.Arguments["region"]
@@ -47,16 +47,13 @@ func processEc2InstanceRequest(sr stateRequest) (string, error) {
   awsRegion := aws.Regions[region]
   ec2Conn := ec2.New(auth, awsRegion)
 
-  instances, err := ec2Conn.Instances([]string{}, nil)
+  securityGroups, err := ec2Conn.SecurityGroups([]ec2.SecurityGroup{}, nil)
 
-  res := []ec2InstanceStateResponse{}
+  res := []ec2SecurityGroupStateResponse{}
 
-  for _, reservation := range instances.Reservations {
-    for _, i := range reservation.Instances {
-      sr := newEc2InstanceStateResponse(i.InstanceId)
-      sr.Data.ImageId = []string{i.ImageId}
-      res = append(res, sr)
-    }
+  for _, sg := range securityGroups.Groups {
+    sr := newEc2SecurityGroupStateResponse(sg.Id)
+    res = append(res, sr)
   }
 
   if err != nil {
@@ -70,16 +67,14 @@ func processEc2InstanceRequest(sr stateRequest) (string, error) {
   return string(data), err
 }
 
-func newEc2InstanceStateResponse(id string) ec2InstanceStateResponse {
-  d := instanceData{}
-  return ec2InstanceStateResponse{Id: id, Data: d}
+func newEc2SecurityGroupStateResponse(id string) ec2SecurityGroupStateResponse {
+  d := securityGroupData{}
+  return ec2SecurityGroupStateResponse{Id: id, Data: d}
 }
 
-type ec2InstanceStateResponse struct {
-  Id   string       `json:"id"`
-  Data instanceData `json:"data"`
+type ec2SecurityGroupStateResponse struct {
+  Id   string            `json:"id"`
+  Data securityGroupData `json:"data"`
 }
 
-type instanceData struct {
-  ImageId []string `json:"image_id"`
-}
+type securityGroupData struct{}
