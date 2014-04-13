@@ -46,7 +46,8 @@ Update the credentials
 
     vi sift-repo/accounts/aws/default.json
 
-Run sift against the "loopback" example repo:
+Run sift against the "loopback" example repo. This repo simulates running a variety
+of verifications against a mocked out AWS provider.
 
     sift repo -d ./examples/repo/passing
 
