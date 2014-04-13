@@ -1,10 +1,43 @@
 [
   {
     "source" : "test-aws_ec2_instance",
+    "filters" : {
+      "instance" : "app"
+    },
+    "verifications" : {
+      "image_id" : {
+        "comparison" : ["equals"],
+        "value" : ["ami-12345678"]
+      }
+    }
+  },
+  {
+    "source" : "test-aws_ec2_instance",
+    "filters" : {
+      "instance" : "app"
+    },
+    "verifications" : {
+      "image_id" : {
+        "comparison" : ["includes"],
+        "value" : ["ami-12345678"]
+      }
+    }
+  },
+  {
+    "source" : "test-aws_ec2_instance",
     "verifications" : {
       "image_id" : {
         "comparison" : ["within"],
         "value" : ["ami-12345678", "ami-87654321"]
+      }
+    }
+  },
+  {
+    "source" : "test-aws_ec2_instance",
+    "verifications" : {
+      "image_id" : {
+        "comparison" : ["set"],
+        "value" : ["true"]
       }
     }
   },
