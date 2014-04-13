@@ -2,6 +2,7 @@ package main
 
 import (
   "flag"
+  "log"
   "net/http"
 )
 
@@ -17,6 +18,8 @@ type stateRequest struct {
 
 func main() {
   port := flag.String("port", "32786", "port to listen on")
+  mux := http.NewServeMux()
   flag.Parse()
-  serveEc2(*port)
+  serveEc2Instance(mux)
+  log.Fatal(http.ListenAndServe(":"+*port, mux))
 }

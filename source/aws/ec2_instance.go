@@ -4,7 +4,6 @@ import (
   "bytes"
   "encoding/json"
   "fmt"
-  "log"
   "net/http"
 
   "github.com/mitchellh/goamz/aws"
@@ -13,9 +12,7 @@ import (
 
 var ec2ArgData string = `["region"]`
 
-func serveEc2(port string) {
-  mux := http.NewServeMux()
-
+func serveEc2Instance(mux *http.ServeMux) {
   mux.HandleFunc("/accounts/aws/credentials", func(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, credData)
   })
@@ -40,7 +37,6 @@ func serveEc2(port string) {
     }
     fmt.Fprintf(w, resp)
   })
-  log.Fatal(http.ListenAndServe(":"+port, mux))
 }
 
 func processInstanceEc2Request(sr stateRequest) (string, error) {
