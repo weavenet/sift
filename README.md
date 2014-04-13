@@ -265,6 +265,7 @@ You can specify which to use in a given policy via the **arguments** key.
 
 The repo directory struct is layed out as follows.
 
+```
 |-accounts
           \aws.json
            github.json
@@ -284,6 +285,7 @@ The repo directory struct is layed out as follows.
 |-sources
          \provider_collection_resource1.json
           provider_collection_resource2.json
+```
 
 * The account file name maps to an account for which you are providing credentials.
 * Filters files have arbitrary names and contain one or more filters.
