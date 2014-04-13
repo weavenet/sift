@@ -112,11 +112,12 @@ func (c *context) validateProvider() error {
   for k, _ := range c.Provider.Arguments {
     providerArguments = append(providerArguments, k)
   }
-  sort.Strings(providerArguments)
   requiredArgs, err := c.Source.ProviderArguments()
   if err != nil {
     return err
   }
+
+  sort.Strings(providerArguments)
   sort.Strings(requiredArgs)
   if !reflect.DeepEqual(requiredArgs, providerArguments) {
     return fmt.Errorf("Provider '%s' required arguments '%s' do not match given arguments '%s'.", c.Provider.Name, requiredArgs, providerArguments)
