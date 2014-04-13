@@ -1,6 +1,9 @@
 package engine
 
 import (
+  "fmt"
+  "strings"
+
   log "github.com/cihub/seelog"
 )
 
@@ -23,6 +26,9 @@ func (s *summary) Output() {
     } else {
       log.Infof("No %s evaluated.", name)
     }
+  }
+  for _, fr := range s.failedReports() {
+    log.Infof(fr)
   }
 }
 
@@ -87,9 +93,9 @@ func (s *summary) reportsBreakdown() map[string]int {
   var pass, fail, total int
   log.Tracef("Summarizing report results.")
   for _, e := range s.run.Evaluations {
-    for _, v := range e.Reports {
+    for _, r := range e.Reports {
       total = total + 1
-      if v.pass() {
+      if r.pass() {
         pass = pass + 1
       } else {
         fail = fail + 1
@@ -97,4 +103,39 @@ func (s *summary) reportsBreakdown() map[string]int {
     }
   }
   return map[string]int{"total": total, "pass": pass, "fail": fail}
+}
+
+func (s *summary) failedReports() (failed []string) {
+  for _, e := range s.run.Evaluations {
+    a := e.Account
+    c := e.Collection
+    p := e.Provider
+
+    for _, r := range e.Reports {
+      n := r.Name
+      v := strings.Join(r.Value, ", ")
+      if !r.pass() {
+        failed = append(failed, fmt.Sprintf("Report '%s' value '%s' failed for '%s %s %s'.", n, v, a, p, c))
+      }
+    }
+  }
+  return failed
+}
+
+func (s *summary) failedVerifications() (failed []string) {
+  for _, e := range s.run.Evaluations {
+    a := e.Account
+    c := e.Collection
+    p := e.Provider
+
+    for _, r := range e.Verifications {
+      comp := r.Comparison
+      n := r.Name
+      v := strings.Join(r.Value, ", ")
+      if !r.pass() {
+        failed = append(failed, fmt.Sprintf("Verification '%s' is '%s' value '%s' failed for '%s %s %s'.", n, comp, v, a, p, c))
+      }
+    }
+  }
+  return failed
 }
