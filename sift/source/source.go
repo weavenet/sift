@@ -4,10 +4,11 @@ import (
   "bytes"
   "encoding/json"
   "fmt"
-  "github.com/brettweavnet/sift/sift/state"
-  log "github.com/cihub/seelog"
   "io/ioutil"
   "net/http"
+
+  "github.com/brettweavnet/sift/sift/state"
+  log "github.com/cihub/seelog"
 )
 
 type Source struct {
@@ -15,6 +16,10 @@ type Source struct {
   providerName   string
   collectionName string
   url            string
+}
+
+type errorResponse struct {
+  Message string `json:"message"`
 }
 
 func NewSource(accountName string, providerName string, collectionName string, url string) *Source {
@@ -25,6 +30,15 @@ func NewSource(accountName string, providerName string, collectionName string, u
     url:            url,
   }
   return &s
+}
+
+func newErrorResponse(data []byte) errorResponse {
+  er := errorResponse{}
+  err := json.Unmarshal(data, &er)
+  if err != nil {
+    log.Errorf("Error unmarshaling error repsonse.")
+  }
+  return er
 }
 
 func (s *Source) SetURL(u string) {
@@ -109,16 +123,17 @@ func (s Source) query(url string, method string, body []byte) (data []byte, err 
     return data, err
   }
   log.Tracef("Recieved response from external source '%+v'.", resp)
-
-  if resp.StatusCode != 200 {
-    log.Debugf("Received error code '%s' connecting to '%s'.", resp.Status, s.stateURL())
-    return data, fmt.Errorf("Unable to connect to external source '%s'.", s.stateURL())
-  }
   defer resp.Body.Close()
 
   data, err = ioutil.ReadAll(resp.Body)
   if err != nil {
     return data, err
+  }
+
+  if resp.StatusCode != 200 {
+    er := newErrorResponse(data)
+    log.Debugf("Received error code '%s' connecting to '%s' with message '%s'.", resp.Status, s.stateURL(), er.Message)
+    return data, fmt.Errorf(er.Message)
   }
   log.Tracef("Received body '%s'", data)
   return data, err

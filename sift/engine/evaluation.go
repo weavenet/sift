@@ -7,8 +7,11 @@ import (
 )
 
 type evaluation struct {
-  Name          string `json:"name"`
   cache         *cache
+  Name          string            `json:"name"`
+  Account       string            `json:"account"`
+  Collection    string            `json:"collection"`
+  Provider      string            `json:"provider"`
   ContextId     string            `json:"context_id"`
   Filters       map[string]filter `json:"filters"`
   Verifications []*verification   `json:"verifications"`
@@ -55,6 +58,11 @@ func (e *evaluation) loadFromParser(p parser) (err error) {
   if err := e.setName(p); err != nil {
     return err
   }
+
+  e.Account = p.Account.Name
+  e.Collection = p.Collection.Name
+  e.Provider = p.Provider.Name
+
   if len(p.Verifications) == 0 && len(p.Reports) == 0 {
     return fmt.Errorf("No reports of verifications specified for evaluation '%s'.", e.Name)
   }

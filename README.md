@@ -5,13 +5,15 @@ running at scale in the cloud.
 
 # Philosophy
 
-Running large application in the cloud is difficult. Enterprises will in a very short
-amount of time ind that they have dozens of different accounts, across multiple
-providers, service many different projects.
+Maintaining secuirty and proper configuraltin when running large application
+in the cloud is difficult. Enterprises will in a very short
+amount of time find that they have dozens of different accounts, across multiple
+providers, service many different projects. Those accounts are managed by many
+different engineers, across different roles, with varyings levels of experience.
 
-You want the teams running these projects to have control of their cloud resources,
-however with the proper guardrails in place to ensure they are not exposing their
-products to risk in the cloud.
+You want the engineers building and running these projects to have control
+of their cloud resources, however with the proper guardrails in place to ensure
+they are not exposing their products to risk in the cloud.
 
 Sift takes the approach that the only way to keep up to date with ensure
 proper configuration and not needlessly hindering application development, is to
@@ -35,15 +37,19 @@ skeleton with the necessary directories for you to get started.
 
 Clone the repo with
 
-   git clone git@github.com:brettweavnet/sift-repo.git
+    git clone git@github.com:brettweavnet/sift-repo.git
+
+Build Sift
+
+    make
 
 Update the credentials
 
-   vi sift-repo/accounts/aws/default.json
+    vi sift-repo/accounts/aws/default.json
 
 Run sift
 
-   sift repo -d sift-repo
+    sift repo -d sift-repo
 
 ## Sift Repo Overview
 

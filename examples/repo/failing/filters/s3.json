@@ -1,0 +1,12 @@
+{
+  "bucket1" : {
+    "include" : ["bucket1"],
+    "exclude" : [],
+    "attributes" : {}
+  },
+  "object2" : {
+    "include" : ["object2"],
+    "exclude" : [],
+    "attributes" : {}
+  }
+}
