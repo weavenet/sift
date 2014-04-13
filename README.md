@@ -270,16 +270,50 @@ and user2 in above example).
 * Policies files have arbitrary names and contain one or more policies.
 * Sources map to a given account-provider-collection (eg. aws\_ec2\_\instance).
 
-## Lists
+## Lists & Functions
 
 There are times when you have a list of many resources to check across multiple
 providers, for example your organizations list of valid users accounts.
 
 Additionally, these resources may have multiple names across accounts or providers.
-For example the user John maybe john123 on github, but jdoe on AWS. Lists allow
-you to create a mapping for a single entity, to multiple different names.
+For example the user John Doe maybe johndoe on one aws account, but jdoe on another AWS.
+Lists allow you to create a mapping for a single entity, to multiple different names.
 
-Lists provide a way to accomplish both.
+Lists and functions provide a way to accomplish both.
+
+Each directory under the lists directory is the name of a list. The individual json
+files within the directory are entries in the list.
+
+For example, to create a users list with johndoe and janedoe, create the directory **users** and the files **johndoe.json** and **janedoe.json** under the lists directory.
+
+The following function can be used to insert that user list into a policy.
+
+    { "Fn::List" : ["users"] }
+
+Users will have different names across different services, to add an alias to the user,
+update the json file to include the primary id, as well as any aliases.  For example
+to add an alias for the finance account for **johndoe**:
+
+    {
+      "id": "johndoe",
+      "finance": "jdoe1"
+    }
+
+The following code will then over-ride the primary id with finance, when available.
+
+    { "Fn::ListSub" : ["users", "finance"] }
+
+Thie will result in the following users.
+
+    ["jdoe1", "janedoe"]
+
+The **ListOnly** function can be used to substitute only those users who are in the finance group.
+
+    { "Fn::ListOnly" : ["users", "finance"] }
+
+Will result in
+
+    ["jdoe1"]
 
 ## Filters
 
