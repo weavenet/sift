@@ -1,7 +1,6 @@
 # Sift
 
-Sift provides policy enforcement fromework for application and organizations
-running at scale in the cloud.
+Sift provides configuration and policy verification and audit fromework for application and organizations running at scale in the cloud.
 
 # Philosophy
 
@@ -354,9 +353,47 @@ Will result in
 Filters are used to target a policy at a specific subset of resources in a
 collection. A policy can be filtered by the following
 
-* include
-* exclude
-* attributes
+* include - including specified resource IDs
+* exclude - excluding specified resource IDs
+* attributes - including only resources whose attributes match the given criteria
+
+The filters directory contains files, with arbitrary names, that contain filters
+which can be referenced within policies.
+
+For example, to create a filter to only include web instances, create a
+json file with the following content under the filters directory of the repo:
+
+```json
+{
+  "web" : {
+    "include" : ["i-1234abcd", "i-9876abcd"]
+  }
+}
+```
+
+To create another filter exclude another set of instances:
+
+```json
+{
+  "exclude_db" : {
+    "exclude" : ["i-abcd1234"]
+  }
+}
+```
+
+This can then be referenced in a policy via:
+
+```json
+{
+  "filters": {
+    "instance": "exclude_db"
+  },
+  "source" : "aws_ec2_instance",
+  "reports" : {
+    "less_than" : ["3"]
+  }
+}
+```
 
 ### Attributes
 
