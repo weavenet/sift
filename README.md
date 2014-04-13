@@ -263,7 +263,7 @@ You can specify which to use in a given policy via the **arguments** key.
 
 ## Repo Overview
 
-The repo directory struct is layed out as follows.
+The repo directory is layed out as follows.
 
 ```
 |-accounts
@@ -422,6 +422,6 @@ to exclude objects with the ID "123", you can apply the following bucket-object 
 }
 ```
 
-# Known Issue
+# Known Issues
 
 * Attribute filtering current has bugs.
