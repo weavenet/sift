@@ -47,22 +47,23 @@ Update the credentials
 
     vi sift-repo/accounts/aws/default.json
 
-Run sift
+Run sift against the "loopback" example repo:
 
-    sift repo -d sift-repo
+    sift repo -d ./examples/repo/passing
 
 ## Sift Repo Overview
 
 ## Policies
 
 The core of a sift repo is it's policies. These are the valiations to perform against
-a set of resources. Sift currently supports two types of policies, **verification** and **report**.
+a resource, or a set of resources. Sift currently supports two types of
+policies, **verification** and **report**.
 
 ### Verifications
 
 Verifications are used to validate specific attributes of the resources in a collection.
-Does the instance use the one of the following AMI IDs?  Does a user account have
-multi factor authentication enabled?
+Do instances use the one of the following AMI IDs?  Do user account have multi factor
+authentication enabled?
 
 For example, to validate that all users have MFA enabled, create the following policy file.
 
@@ -77,8 +78,8 @@ For example, to validate that all users have MFA enabled, create the following p
       }
     ]
 
-By default, sift compares that a value matches, however the following additional
-comparisons can be made of value to a desired state.
+By default, sift compares that a value matches what is specified, however the
+following additional comparisons can be made of value to a desired state.
 
 * include
 * exclude
@@ -103,11 +104,11 @@ For example, to ensure that all EC2 instances use one of a specific list of AMIS
 ### Reports
 
 Reports are ran against an entire collection of resources to make sure it matches a
-given set of ids. For example, does the list of users match user1, user2 and user3?
-Are there at least 2 snapshots of the database?  Are there less than 20 instances running?
+list or quantity. For example, does the list of users match user1, user2 and user3?
+Are there at least 2 snapshots of the database? Are there less than 20 instances running?
 
-For example, to verify that there are less then 5 instances running, you can use
- the following:
+For example, to verify that there are less then 5 instances running, you can use 
+the following report:
 
     [
       {
@@ -138,7 +139,7 @@ Reports can perform the following comparisons.
 
 ## Accounts
 
-Contain credentials which are used to access providers by a given account. Accounts 
+Accounts contain credentials which are used to access providers by a given account. Accounts
 will have different credentials depending on the provider.
 
 For example, to access AWS you will need to add an account with a **secret_access_key** and
@@ -178,6 +179,10 @@ by referencing it in the verification.
         }
       }
     ]
+
+As the number of teams and projects grows, accounts can be segrated into different
+scopes (Prod / Dev, Web / App, Finance / Marketing, etc) to ensure policies are targeted
+correctly.
 
 ## Sources
 
@@ -220,7 +225,7 @@ for only the us-east-1 region, you can create the following source:
       }
     }
 
-You can specify which arguments to provide in the verificaiton
+You can specify which to use in a given policy via the **arguments** key.
 
     [
       {
@@ -255,22 +260,26 @@ The repo directory struct is layed out as follows.
           \policies_file1.json
            policies_file2.json
 |-sources
-         \resource1.json
-          resource2.json
+         \provider_collection_resource1.json
+          provider_collection_resource2.json
 
 * The account file name maps to an account for which you are providing credentials.
 * Filters files have arbitrary names and contain one or more filters.
-* Lists contain directories contain an list of items.
+* Lists contains directories which are mapped to lists (list users has user1
+and user2 in above example).
 * Policies files have arbitrary names and contain one or more policies.
 * Sources map to a given account-provider-collection (eg. aws\_ec2\_\instance).
 
-
 ## Lists
 
-There are times when you have a list of many items to check, or when you have
-a resource which may have multiple names across accounts or providers. For example
-the user John maybe john123 on github, but jdoe on AWS. Lists allow you to create
-a mapping for a single entity, to multiple different names.
+There are times when you have a list of many resources to check across multiple
+providers, for example your organizations list of valid users accounts.
+
+Additionally, these resources may have multiple names across accounts or providers.
+For example the user John maybe john123 on github, but jdoe on AWS. Lists allow
+you to create a mapping for a single entity, to multiple different names.
+
+Lists provide a way to accomplish both.
 
 ## Filters
 
