@@ -7,9 +7,9 @@ import (
 )
 
 type evaluation struct {
-  Name          string `json:"name"`
   cache         *cache
   ContextId     string            `json:"context_id"`
+  Name          string            `json:"name"`
   Filters       map[string]filter `json:"filters"`
   Verifications []*verification   `json:"verifications"`
   Reports       []*report         `json:"reports"`
