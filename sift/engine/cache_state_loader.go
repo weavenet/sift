@@ -106,8 +106,9 @@ func (c cacheStateLoader) loadContextState(cntxt *context, cash *cache, resultCh
   log.Debugf("Loading state '%s'.", cntxt.id)
   cash.SetContextStatusLoadInProgress(cntxt.id)
   if err := cntxt.loadState(cash); err != nil {
-    log.Errorf("Error loading context '%s'.", cntxt.id)
+    log.Debugf("Error loading context '%s'.", cntxt.id)
     resultChan <- err
+    return
   }
   log.Debugf("Succesfully loaded state '%s'.", cntxt.id)
   cash.SetContext(cntxt.id, cntxt)

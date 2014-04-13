@@ -10,6 +10,20 @@ import (
   "github.com/mitchellh/goamz/ec2"
 )
 
+type ec2InstanceStateResponse struct {
+  Id   string       `json:"id"`
+  Data instanceData `json:"data"`
+}
+
+type instanceData struct {
+  ImageId []string `json:"image_id"`
+}
+
+func newEc2InstanceStateResponse(id string) ec2InstanceStateResponse {
+  d := instanceData{}
+  return ec2InstanceStateResponse{Id: id, Data: d}
+}
+
 func serveAwsEc2Instance(mux *http.ServeMux) {
   mux.HandleFunc("/accounts/aws/providers/ec2/collections/instance/state", func(w http.ResponseWriter, r *http.Request) {
     body := r.Body
@@ -18,14 +32,14 @@ func serveAwsEc2Instance(mux *http.ServeMux) {
     buf := new(bytes.Buffer)
     buf.ReadFrom(body)
 
-    sr := stateRequest{}
+    sr := newStateRequest()
     err := json.Unmarshal(buf.Bytes(), &sr)
     if err != nil {
-      http.Error(w, err.Error(), 400)
+      http.Error(w, newErrorResponse(err).String(), 400)
     }
     resp, err := processEc2InstanceRequest(sr)
     if err != nil {
-      http.Error(w, err.Error(), 400)
+      http.Error(w, newErrorResponse(err).String(), 400)
     }
     fmt.Fprintf(w, resp)
   })
@@ -48,6 +62,9 @@ func processEc2InstanceRequest(sr stateRequest) (string, error) {
   ec2Conn := ec2.New(auth, awsRegion)
 
   instances, err := ec2Conn.Instances([]string{}, nil)
+  if err != nil {
+    return "", err
+  }
 
   res := []ec2InstanceStateResponse{}
 
@@ -59,27 +76,9 @@ func processEc2InstanceRequest(sr stateRequest) (string, error) {
     }
   }
 
-  if err != nil {
-    return "", err
-  }
-
   data, err := json.Marshal(res)
   if err != nil {
     return "", err
   }
-  return string(data), err
-}
-
-func newEc2InstanceStateResponse(id string) ec2InstanceStateResponse {
-  d := instanceData{}
-  return ec2InstanceStateResponse{Id: id, Data: d}
-}
-
-type ec2InstanceStateResponse struct {
-  Id   string       `json:"id"`
-  Data instanceData `json:"data"`
-}
-
-type instanceData struct {
-  ImageId []string `json:"image_id"`
+  return string(data), nil
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+  "encoding/json"
   "flag"
   "fmt"
   "log"
@@ -15,6 +16,23 @@ type stateRequest struct {
   Credentials map[string]string `json:"credentials"`
   Arguments   map[string]string `json:"arguments"`
   ParentIds   []string          `json:"parent_ids"`
+}
+
+type errorResponse struct {
+  Message string `json:"message"`
+}
+
+func newStateRequest() stateRequest {
+  return stateRequest{}
+}
+
+func newErrorResponse(e error) errorResponse {
+  return errorResponse{Message: e.Error()}
+}
+
+func (e errorResponse) String() string {
+  data, _ := json.Marshal(e)
+  return string(data)
 }
 
 func main() {
