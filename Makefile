@@ -6,7 +6,7 @@ all: clean fmt test
 	@echo "==> Compiling source code."
 	@echo
 	@env GOPATH=$(gopath) go build -v -o ./bin/sift ./sift
-	@env GOPATH=$(gopath) go build -v -o ./bin/sift-source-aws-ec2 ./source/aws/ec2
+	@env GOPATH=$(gopath) go build -v -o ./bin/sift-source-aws ./source/aws
 	@env GOPATH=$(gopath) go build -v -o ./bin/sift-source-test-aws ./source/test/aws
 	@chmod a+x ./bin/*
 test:

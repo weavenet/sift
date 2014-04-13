@@ -5,32 +5,28 @@ import (
   "encoding/json"
   "flag"
   "fmt"
-  "github.com/mitchellh/goamz/aws"
   "log"
   "net/http"
+
+  "github.com/mitchellh/goamz/aws"
+  "github.com/mitchellh/goamz/ec2"
 )
 
 var server *http.Server
 
 var credData string = `["access_key_id", "secret_access_key"]`
 var ec2ArgData string = `["region"]`
-var ec2InstanceStateData string = `
-[
-  {
-    "id" : "i-12345678",
-    "data" : { "image_id" : ["ami-12345678"] }
-  },
-  {
-    "id" : "i-9876abcd",
-    "data" : { "image_id" : ["ami-87654321"] }
-  }
-]
-`
 
 type stateRequest struct {
   Credentials map[string]string `json:"credentials"`
   Arguments   map[string]string `json:"arguments"`
   ParentIds   []string          `json:"parent_ids"`
+}
+
+func main() {
+  port := flag.String("port", "32786", "port to listen on")
+  flag.Parse()
+  setup(*port)
 }
 
 func setup(port string) {
@@ -63,12 +59,6 @@ func setup(port string) {
   log.Fatal(http.ListenAndServe(":"+port, mux))
 }
 
-func main() {
-  port := flag.String("port", "32786", "port to listen on")
-  flag.Parse()
-  setup(*port)
-}
-
 func processRequest(sr stateRequest) (string, error) {
   accessKey := sr.Credentials["access_key_id"]
   secretKey := sr.Credentials["secret_access_key"]
@@ -83,5 +73,35 @@ func processRequest(sr stateRequest) (string, error) {
     return "", fmt.Errorf("invalid or unspecified region")
   }
   awsRegion := aws.Regions[region]
-  return fmt.Sprintf("%s %s", auth, awsRegion), nil
+  ec2Conn := ec2.New(auth, awsRegion)
+
+  instances, err := ec2Conn.Instances([]string{}, nil)
+
+  res := []stateResponse{}
+
+  for _, reservation := range instances.Reservations {
+    for _, i := range reservation.Instances {
+      sResp := stateResponse{Id: i.InstanceId}
+      res = append(res, sResp)
+    }
+  }
+
+  if err != nil {
+    return "", err
+  }
+
+  data, err := json.Marshal(res)
+  if err != nil {
+    return "", err
+  }
+  return string(data), err
+}
+
+type stateResponse struct {
+  Id   string       `json:"id"`
+  data instanceData `json:"data"`
+}
+
+type instanceData struct {
+  ImageId []string `json:"image_id"`
 }
