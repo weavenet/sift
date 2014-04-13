@@ -67,16 +67,18 @@ authentication enabled?
 
 For example, to validate that all users have MFA enabled, create the following policy file.
 
-    [
-      {
-        "source" : "aws_iam_user",
-        "verifications" : {
-          "mfa" : {
-            "value" : ["true"]
-          }
-        }
+```json
+[
+  {
+    "source" : "aws_iam_user",
+    "verifications" : {
+      "mfa" : {
+        "value" : ["true"]
       }
-    ]
+    }
+  }
+]
+```
 
 By default, sift compares that a value matches what is specified, however the
 following additional comparisons can be made of value to a desired state.
@@ -89,17 +91,19 @@ following additional comparisons can be made of value to a desired state.
 
 For example, to ensure that all EC2 instances use one of a specific list of AMIS:
 
-    [
-      {
-        "source" : "aws_ec2_instance",
-        "verifications" : {
-          "image" : {
-            "comparison" : ["within"],
-            "value" : ["ami-12345678", "ami-87654321"]
-          }
-        }
+```json
+[
+  {
+    "source" : "aws_ec2_instance",
+    "verifications" : {
+      "image" : {
+        "comparison" : ["within"],
+        "value" : ["ami-12345678", "ami-87654321"]
       }
-    ]
+    }
+  }
+]
+```
 
 ### Reports
 
@@ -110,26 +114,30 @@ Are there at least 2 snapshots of the database? Are there less than 20 instances
 For example, to verify that there are less then 5 instances running, you can use 
 the following report:
 
-    [
-      {
-        "source" : "aws_ec2_instance",
-        "reports" : {
-          "less_than" : ["5"]
-        }
-      }
-    ]
+```json
+[
+  {
+    "source" : "aws_ec2_instance",
+    "reports" : {
+      "less_than" : ["5"]
+    }
+  }
+]
+```
 
 Reports can also validate the entries in a list using **equals**.  For example, to
 ensure a list of iam users only contains john and jane:
 
-    [
-      {
-        "source" : "aws_iam_user",
-        "reports" : {
-          "equals" : ["john", "jane"]
-        }
-      }
-    ]
+```json
+[
+  {
+    "source" : "aws_iam_user",
+    "reports" : {
+      "equals" : ["john", "jane"]
+    }
+  }
+]
+```
 
 Reports can perform the following comparisons.
 
@@ -142,43 +150,49 @@ Reports can perform the following comparisons.
 Accounts contain credentials which are used to access providers by a given account. Accounts
 will have different credentials depending on the provider.
 
-For example, to access AWS you will need to add an account with a **secret_access_key** and
-**access_key_id**. For example:
+For example, to access AWS you will need to add an account with a **secret_access_key** 
+and **access_key_id**. For example:
 
-    {
-      "credentials" : {
-        "key"    : "abc",
-        "secret" : "123"
-      }
-    }
+```json
+{
+  "credentials" : {
+    "key"    : "abc",
+    "secret" : "123"
+  }
+}
+```
 
 Accounts can also be referenced by scope, this allows for groups of like accounts to 
 be targeted by specific policies. For example, you can put the above account in the
 **prod** and **web** scopes.
 
-    {
-      "credentials" : {
-        "key"    : "abc",
-        "secret" : "123"
-      },
-      "scope" : ["prod", "web"]
-    }
+```json
+{
+  "credentials" : {
+    "key"    : "abc",
+    "secret" : "123"
+  },
+  "scope" : ["prod", "web"]
+}
+```
 
 A report or verification can then be run against all accounts in a given scope
 by referencing it in the verification.
 
-    [
-      {
-        "source" : "aws_ec2_instance",
-        "scope" : "web",
-        "verifications" : {
-          "image" : {
-            "comparison" : ["within"],
-            "value" : ["ami-12345678", "ami-87654321"]
-          }
-        }
+```json
+[
+  {
+    "source" : "aws_ec2_instance",
+    "scope" : "web",
+    "verifications" : {
+      "image" : {
+        "comparison" : ["within"],
+        "value" : ["ami-12345678", "ami-87654321"]
       }
-    ]
+    }
+  }
+]
+```
 
 As the number of teams and projects grows, accounts can be segrated into different
 scopes (Prod / Dev, Web / App, Finance / Marketing, etc) to ensure policies are targeted
@@ -195,47 +209,55 @@ matches the target in **sources**.
 For example, to add a source for **aws_ec2_instance**, create the file
 **aws_ec2_instance.json** with the following content in sources:
 
-    {
-      "default" {
-        "region" : ["us-west-1"]
-      }
-    }
+```json
+{
+  "default" {
+    "region" : ["us-west-1"]
+  }
+}
+```
 
 If multiple arguments are provided for the source, sift will run evaluations
 against that souce using each of the arguments.
 
 For example, to run a policy against both US West regions, you would specify
 
-    {
-      "default" {
-        "region" : ["us-west-1", "us-west-2"]
-      }
-    }
+```json
+{
+  "default" {
+    "region" : ["us-west-1", "us-west-2"]
+  }
+}
+```
 
 Multiple source arguments can be set by giving them each a unique name which is
 referenced in the policy. For example, to set one policy for all us regions, and one
 for only the us-east-1 region, you can create the following source:
 
-    {
-      "us" {
-        "region" : ["us-west-1", "us-west-2", "us-east-1"]
-      },
-      "east" {
-        "region" : ["us-east-1"]
-      }
-    }
+```json
+{
+  "us" {
+    "region" : ["us-west-1", "us-west-2", "us-east-1"]
+  },
+  "east" {
+    "region" : ["us-east-1"]
+  }
+}
+```
 
 You can specify which to use in a given policy via the **arguments** key.
 
-    [
-      {
-        "source" : "aws_ec2_instance",
-        "arguments" : "us",
-        "reports" : {
-          "less_than" : ["5"]
-        }
-      }
-    ]
+```json
+[
+  {
+    "source" : "aws_ec2_instance",
+    "arguments" : "us",
+    "reports" : {
+      "less_than" : ["5"]
+    }
+  }
+]
+```
 
 # Advanced
 
@@ -288,32 +310,44 @@ For example, to create a users list with johndoe and janedoe, create the directo
 
 The following function can be used to insert that user list into a policy.
 
-    { "Fn::List" : ["users"] }
+```json
+{ "Fn::List" : ["users"] }
+```
 
 Users will have different names across different services, to add an alias to the user,
 update the json file to include the primary id, as well as any aliases.  For example
 to add an alias for the finance account for **johndoe**:
 
-    {
-      "id": "johndoe",
-      "finance": "jdoe1"
-    }
+```json
+{
+  "id": "johndoe",
+  "finance": "jdoe1"
+}
+```
 
 The following code will then over-ride the primary id with finance, when available.
 
-    { "Fn::ListSub" : ["users", "finance"] }
+```json
+{ "Fn::ListSub" : ["users", "finance"] }
+```
 
 Thie will result in the following users.
 
-    ["jdoe1", "janedoe"]
+```json
+["jdoe1", "janedoe"]
+```
 
 The **ListOnly** function can be used to substitute only those users who are in the finance group.
 
-    { "Fn::ListOnly" : ["users", "finance"] }
+```json
+{ "Fn::ListOnly" : ["users", "finance"] }
+```
 
 Will result in
 
-    ["jdoe1"]
+```json
+["jdoe1"]
+```
 
 ## Filters
 
@@ -336,16 +370,18 @@ For example, to only include objects within buckets that have versioning enabled
 to exclude objects with the ID "123", you can apply the following bucket-object filter.
 
 ```json
-    "filters" : {
-      "bucket" : {
-        "attributes" : {
-          "versioning_enabled" : {
-            "equals" : ["true"]
-          }
-        }
-      },
-      "bucket-object" : {
-        "exclude" : ["y"]
-      }
-    },
+"bucket" : {
+  "attributes" : {
+    "versioning_enabled" : {
+      "equals" : ["true"]
+    }
+  }
+},
+"bucket-object" : {
+  "exclude" : ["y"]
+}
 ```
+
+# Known Issue
+
+* Attribute filtering current has bugs.
