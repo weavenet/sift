@@ -1,0 +1,14 @@
+[
+  {
+    "source" : "test-aws_iam_user",
+    "reports" : {
+      "less_than" : ["1"]
+    }
+  },
+  {
+    "source" : "test-aws_iam_user",
+    "reports" : {
+      "equals" : ["foo", "bar"]
+    }
+  }
+]

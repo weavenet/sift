@@ -27,6 +27,9 @@ func (s *summary) Output() {
       log.Infof("No %s evaluated.", name)
     }
   }
+  for _, fr := range s.failedVerifications() {
+    log.Infof(fr)
+  }
   for _, fr := range s.failedReports() {
     log.Infof(fr)
   }
@@ -115,7 +118,7 @@ func (s *summary) failedReports() (failed []string) {
       n := r.Name
       v := strings.Join(r.Value, ", ")
       if !r.pass() {
-        failed = append(failed, fmt.Sprintf("Report '%s' value '%s' failed for '%s %s %s'.", n, v, a, p, c))
+        failed = append(failed, fmt.Sprintf("Report '%s' value '%s' failed for '%s_%s_%s'.", n, v, a, p, c))
       }
     }
   }
@@ -133,7 +136,7 @@ func (s *summary) failedVerifications() (failed []string) {
       n := r.Name
       v := strings.Join(r.Value, ", ")
       if !r.pass() {
-        failed = append(failed, fmt.Sprintf("Verification '%s' is '%s' value '%s' failed for '%s %s %s'.", n, comp, v, a, p, c))
+        failed = append(failed, fmt.Sprintf("Verification '%s' is '%s' value '%s' failed for '%s_%s_%s'.", n, comp, v, a, p, c))
       }
     }
   }

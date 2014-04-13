@@ -1,0 +1,29 @@
+[
+  {
+    "source" : "test-aws_s3_bucket",
+    "filters" : {
+      "bucket" : "bucket1"
+    },
+    "reports" : {
+      "equals" : ["foo"]
+    }
+  },
+  {
+    "source" : "test-aws_s3_bucket-object",
+    "filters" : {
+      "bucket" : "bucket1"
+    },
+    "reports" : {
+      "equals" : ["foo1", "bar2"]
+    }
+  },
+  {
+    "source" : "test-aws_s3_bucket-object",
+    "filters" : {
+      "bucket-object" : "object2"
+    },
+    "reports" : {
+      "equals" : ["foo"]
+    }
+  }
+]

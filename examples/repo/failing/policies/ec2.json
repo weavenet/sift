@@ -1,0 +1,23 @@
+[
+  {
+    "source" : "test-aws_ec2_instance",
+    "verifications" : {
+      "image_id" : {
+        "comparison" : ["within"],
+        "value" : ["ami-99999999", "ami-aaaaaaaa"]
+      }
+    }
+  },
+  {
+    "source" : "test-aws_ec2_instance",
+    "reports" : {
+      "less_than" : ["1"]
+    }
+  },
+  {
+    "source" : "test-aws_ec2_instance",
+    "reports" : {
+      "greater_than" : ["2"]
+    }
+  }
+]
