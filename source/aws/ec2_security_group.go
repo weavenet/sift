@@ -6,7 +6,6 @@ import (
   "fmt"
   "net/http"
 
-  "github.com/mitchellh/goamz/aws"
   "github.com/mitchellh/goamz/ec2"
 )
 
@@ -46,20 +45,10 @@ func serveAwsEc2SecurityGroup(mux *http.ServeMux) {
 }
 
 func processEc2SecurityGroupRequest(sr stateRequest) (string, error) {
-  accessKey := sr.Credentials["access_key_id"]
-  secretKey := sr.Credentials["secret_access_key"]
-  region := sr.Arguments["region"]
-
-  if accessKey == "" || secretKey == "" {
-    return "", fmt.Errorf("access_key_id or secret_access_key not specified")
+  ec2Conn, err := connectEc2(sr)
+  if err != nil {
+    return "", err
   }
-  auth := aws.Auth{accessKey, secretKey, ""}
-
-  if _, ok := aws.Regions[region]; !ok {
-    return "", fmt.Errorf("invalid or unspecified region")
-  }
-  awsRegion := aws.Regions[region]
-  ec2Conn := ec2.New(auth, awsRegion)
 
   securityGroups, err := ec2Conn.SecurityGroups([]ec2.SecurityGroup{}, nil)
   if err != nil {
@@ -67,7 +56,6 @@ func processEc2SecurityGroupRequest(sr stateRequest) (string, error) {
   }
 
   res := []ec2SecurityGroupStateResponse{}
-
   for _, sg := range securityGroups.Groups {
     sr := newEc2SecurityGroupStateResponse(sg.Id)
     sr.Data.VpcId = []string{sg.VpcId}

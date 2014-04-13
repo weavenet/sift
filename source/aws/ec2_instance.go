@@ -5,9 +5,6 @@ import (
   "encoding/json"
   "fmt"
   "net/http"
-
-  "github.com/mitchellh/goamz/aws"
-  "github.com/mitchellh/goamz/ec2"
 )
 
 type ec2InstanceStateResponse struct {
@@ -46,20 +43,10 @@ func serveAwsEc2Instance(mux *http.ServeMux) {
 }
 
 func processEc2InstanceRequest(sr stateRequest) (string, error) {
-  accessKey := sr.Credentials["access_key_id"]
-  secretKey := sr.Credentials["secret_access_key"]
-  region := sr.Arguments["region"]
-
-  if accessKey == "" || secretKey == "" {
-    return "", fmt.Errorf("access_key_id or secret_access_key not specified")
+  ec2Conn, err := connectEc2(sr)
+  if err != nil {
+    return "", err
   }
-  auth := aws.Auth{accessKey, secretKey, ""}
-
-  if _, ok := aws.Regions[region]; !ok {
-    return "", fmt.Errorf("invalid or unspecified region")
-  }
-  awsRegion := aws.Regions[region]
-  ec2Conn := ec2.New(auth, awsRegion)
 
   instances, err := ec2Conn.Instances([]string{}, nil)
   if err != nil {
@@ -67,7 +54,6 @@ func processEc2InstanceRequest(sr stateRequest) (string, error) {
   }
 
   res := []ec2InstanceStateResponse{}
-
   for _, reservation := range instances.Reservations {
     for _, i := range reservation.Instances {
       sr := newEc2InstanceStateResponse(i.InstanceId)
