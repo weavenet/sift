@@ -19,7 +19,7 @@ func newAccount() *account {
 func (a *account) convertEnvVarsToCredentials() error {
   for _, cred := range a.Credentials {
     if strings.HasPrefix(cred, "$") {
-      credEnv := os.Getenv(cred)
+      credEnv := os.Getenv(strings.Trim(cred, "$"))
       if credEnv != "" {
         log.Debugf("Loading credentials '%s' from env variable '%s'.", credEnv, cred)
         a.Credentials[cred] = credEnv
