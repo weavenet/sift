@@ -65,7 +65,6 @@ func valueIncludes(name string, value []string, states []state.State) (map[strin
       return r, err
     }
     r[s.Id] = true
-    log.Tracef("Validating '%s' includes '%s'.", stateValue, value)
     v := false
     for _, sv := range stateValue {
       for _, cv := range value {
@@ -74,6 +73,7 @@ func valueIncludes(name string, value []string, states []state.State) (map[strin
         }
       }
     }
+    log.Tracef("Validating '%s' includes '%s' result '%t'.", stateValue, value, v)
     r[s.Id] = v
   }
   return r, nil
@@ -134,7 +134,6 @@ func valueWithin(name string, value []string, states []state.State) (map[string]
       return r, err
     }
     r[s.Id] = false
-    log.Tracef("Validating '%s' is represented in '%s'.", stateValue, value)
     matchCount := 0
     for _, sv := range stateValue {
       for _, cv := range value {
@@ -144,11 +143,9 @@ func valueWithin(name string, value []string, states []state.State) (map[string]
       }
     }
     valCount := len(stateValue)
-    if valCount == matchCount {
-      r[s.Id] = true
-    } else {
-      r[s.Id] = false
-    }
+    v := valCount == matchCount
+    log.Tracef("Validating '%s' is represented in '%s' result '%t'.", stateValue, value, v)
+    r[s.Id] = v
   }
 
   return r, nil

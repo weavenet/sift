@@ -80,9 +80,11 @@ For example, to validate that all users have MFA enabled, create the following p
 ]
 ```
 
-By default, sift compares that a value matches what is specified, however the
-following additional comparisons can be made of value to a desired state.
+By default, sift ensures that the value **equals** the resource state.
 
+The following comparisons of the value and resource state can be made.
+
+* equals
 * include
 * exclude
 * equals
