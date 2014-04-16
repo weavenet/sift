@@ -52,7 +52,7 @@ var valueTCs = []struct {
   {"groups", "excludes", []string{"admin"}, states, map[string]bool{"1": false, "2": false}, nil},
   {"groups", "excludes", []string{"db"}, states, map[string]bool{"1": true, "2": false}, nil},
   {"groups", "excludes", []string{"web"}, states, map[string]bool{"1": false, "2": true}, nil},
-  // {"not_here", "excludes", []string{"true"}, states, map[string]bool{}, fmt.Errorf("Value for 'not_here' not set.")},
+  {"not_here", "excludes", []string{"true"}, states, map[string]bool{}, fmt.Errorf("Value for 'not_here' not set.")},
   {"image_id", "set", []string{"true"}, states, map[string]bool{"1": true, "2": true}, nil},
   {"image_id", "set", []string{"false"}, states, map[string]bool{"1": false, "2": false}, nil},
   {"not_here", "set", []string{"true"}, states, map[string]bool{}, fmt.Errorf("Value for 'not_here' not set.")},
