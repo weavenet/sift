@@ -78,9 +78,9 @@ func processEc2SecurityGroupIpPermissionRequest(sr stateRequest) (string, error)
   res := []ec2SecurityGroupIpPermissionStateResponse{}
 
   for _, sg := range securityGroups.Groups {
-    for c, ipperm := range sg.IPPerms {
+    for _, ipperm := range sg.IPPerms {
       data := newEc2SecurityGroupIpPermissionStateResponseData(ipperm)
-      sr := newEc2SecurityGroupIpPermissionStateResponse(strconv.Itoa(c), sg.Id, data)
+      sr := newEc2SecurityGroupIpPermissionStateResponse("", sg.Id, data)
       res = append(res, sr)
     }
   }
