@@ -64,6 +64,9 @@ func (r *repo) loadAccountsFromDir(path string, p *plan) error {
     if err := json.Unmarshal(file, &a); err != nil {
       return err
     }
+    if err := a.convertEnvVarsToCredentials(); err != nil {
+      return err
+    }
     if len(a.Scope) == 0 {
       log.Tracef("Scope not set, using 'default'.")
       a.Scope = []string{"default"}

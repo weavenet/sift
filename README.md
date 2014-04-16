@@ -150,14 +150,17 @@ Reports can perform the following comparisons.
 Accounts contain credentials which are used to access providers by a given account. Accounts
 will have different credentials depending on the provider.
 
+Sift repos are expected to be checked into your SCM. The best way to set credentials
+is via environment variables which can be set using a secure process.
+
 For example, to access AWS you will need to add an account with a **secret_access_key** 
-and **access_key_id**. For example:
+and **access_key_id**.
 
 ```json
 {
   "credentials" : {
-    "key"    : "abc",
-    "secret" : "123"
+    "access_key_id"     : "$AWS_ACCESS_KEY_ID",
+    "secret_access_key" : "$AWS_SECRET_ACCESS_KEY"
   }
 }
 ```
