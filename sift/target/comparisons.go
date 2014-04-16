@@ -19,6 +19,8 @@ var filterFuncs = map[string]func(string, []string, []state.State) (map[string]b
   "equals":   valueEquals,
   "include":  valueIncludes,
   "includes": valueIncludes,
+  "exclude":  valueExcludes,
+  "excludes": valueExcludes,
   "within":   valueWithin,
   "set":      valueSet,
 }
@@ -69,6 +71,28 @@ func valueIncludes(name string, value []string, states []state.State) (map[strin
       for _, cv := range value {
         if cv == sv {
           v = true
+        }
+      }
+    }
+    r[s.Id] = v
+  }
+  return r, nil
+}
+
+func valueExcludes(name string, value []string, states []state.State) (map[string]bool, error) {
+  r := map[string]bool{}
+  for _, s := range states {
+    stateValue, err := s.Get(name)
+    if err != nil {
+      return r, err
+    }
+    r[s.Id] = true
+    log.Tracef("Validating '%s' includes '%s'.", stateValue, value)
+    v := true
+    for _, sv := range stateValue {
+      for _, cv := range value {
+        if cv == sv {
+          v = false
         }
       }
     }
