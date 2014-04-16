@@ -87,7 +87,6 @@ func valueExcludes(name string, value []string, states []state.State) (map[strin
       return r, err
     }
     r[s.Id] = true
-    log.Tracef("Validating '%s' includes '%s'.", stateValue, value)
     v := true
     for _, sv := range stateValue {
       for _, cv := range value {
@@ -96,6 +95,7 @@ func valueExcludes(name string, value []string, states []state.State) (map[strin
         }
       }
     }
+    log.Tracef("Validating '%s' does not include '%s' result '%t'.", stateValue, value, v)
     r[s.Id] = v
   }
   return r, nil
