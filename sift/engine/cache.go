@@ -12,23 +12,19 @@ const (
 )
 
 type cache struct {
-  contexts        map[string]*context `json:"context"`
+  Contexts        map[string]*context `json:"context"`
   status          map[string]int
   sourceEndpoints map[string]endpoint
 }
 
 func newCache() *cache {
-  return &cache{contexts: map[string]*context{},
+  return &cache{Contexts: map[string]*context{},
     status:          map[string]int{},
     sourceEndpoints: map[string]endpoint{}}
 }
 
-func (c cache) Contexts() map[string]*context {
-  return c.contexts
-}
-
 func (c cache) GetContext(id string) (*context, bool) {
-  val, ok := c.contexts[id]
+  val, ok := c.Contexts[id]
   return val, ok
 }
 
@@ -37,7 +33,7 @@ func (c cache) GetContextStatus(id string) int {
 }
 
 func (c cache) SetContext(id string, cntxt *context) {
-  c.contexts[id] = cntxt
+  c.Contexts[id] = cntxt
 }
 
 func (c cache) SetContextStatus(id string, status int) {

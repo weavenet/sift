@@ -44,7 +44,7 @@ func (r *run) Execute() error {
 }
 
 func (r *run) validateContexts() (err error) {
-  for _, context := range r.Cache.Contexts() {
+  for _, context := range r.Cache.Contexts {
     if err := context.validate(); err != nil {
       return err
     }

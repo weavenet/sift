@@ -18,7 +18,7 @@ func (s endpointManager) setContextsEndpoints() error {
 
   log.Infof("Starting source process manager.")
 
-  for _, cntxt := range cash.contexts {
+  for _, cntxt := range cash.Contexts {
     tgt := cntxt.targetAccount()
 
     if s.runConfig.overrideEndpointSet() {
