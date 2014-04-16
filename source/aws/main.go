@@ -43,6 +43,7 @@ func main() {
   serveAwsEc2(mux)
   serveAwsEc2Instance(mux)
   serveAwsEc2SecurityGroup(mux)
+  serveAwsEc2SecurityGroupIpPermission(mux)
   log.Fatal(http.ListenAndServe(":"+*port, mux))
 }
 

@@ -19,6 +19,8 @@ var filterFuncs = map[string]func(string, []string, []state.State) (map[string]b
   "equals":   valueEquals,
   "include":  valueIncludes,
   "includes": valueIncludes,
+  "exclude":  valueExcludes,
+  "excludes": valueExcludes,
   "within":   valueWithin,
   "set":      valueSet,
 }
@@ -63,7 +65,6 @@ func valueIncludes(name string, value []string, states []state.State) (map[strin
       return r, err
     }
     r[s.Id] = true
-    log.Tracef("Validating '%s' includes '%s'.", stateValue, value)
     v := false
     for _, sv := range stateValue {
       for _, cv := range value {
@@ -72,6 +73,29 @@ func valueIncludes(name string, value []string, states []state.State) (map[strin
         }
       }
     }
+    log.Tracef("Validating '%s' includes '%s' result '%t'.", stateValue, value, v)
+    r[s.Id] = v
+  }
+  return r, nil
+}
+
+func valueExcludes(name string, value []string, states []state.State) (map[string]bool, error) {
+  r := map[string]bool{}
+  for _, s := range states {
+    stateValue, err := s.Get(name)
+    if err != nil {
+      return r, err
+    }
+    r[s.Id] = true
+    v := true
+    for _, sv := range stateValue {
+      for _, cv := range value {
+        if cv == sv {
+          v = false
+        }
+      }
+    }
+    log.Tracef("Validating '%s' does not include '%s' result '%t'.", stateValue, value, v)
     r[s.Id] = v
   }
   return r, nil
@@ -110,7 +134,6 @@ func valueWithin(name string, value []string, states []state.State) (map[string]
       return r, err
     }
     r[s.Id] = false
-    log.Tracef("Validating '%s' is represented in '%s'.", stateValue, value)
     matchCount := 0
     for _, sv := range stateValue {
       for _, cv := range value {
@@ -120,11 +143,9 @@ func valueWithin(name string, value []string, states []state.State) (map[string]
       }
     }
     valCount := len(stateValue)
-    if valCount == matchCount {
-      r[s.Id] = true
-    } else {
-      r[s.Id] = false
-    }
+    v := valCount == matchCount
+    log.Tracef("Validating '%s' is represented in '%s' result '%t'.", stateValue, value, v)
+    r[s.Id] = v
   }
 
   return r, nil
