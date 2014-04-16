@@ -150,7 +150,7 @@ Reports can perform the following comparisons.
 Accounts contain credentials which are used to access providers by a given account. Accounts
 will have different credentials depending on the provider.
 
-Sift repos are expected to be checked into source, so the best way to set credentials
+Sift repos are expected to be checked into your SCM. The best way to set credentials
 is via environment variables which can be set using a secure process.
 
 For example, to access AWS you will need to add an account with a **secret_access_key** 

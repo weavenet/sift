@@ -17,14 +17,15 @@ func newAccount() *account {
 }
 
 func (a *account) convertEnvVarsToCredentials() error {
-  for _, cred := range a.Credentials {
-    if strings.HasPrefix(cred, "$") {
-      credEnv := os.Getenv(strings.Trim(cred, "$"))
+  for name, value := range a.Credentials {
+    if strings.HasPrefix(value, "$") {
+      envVar := strings.Trim(value, "$")
+      credEnv := os.Getenv(envVar)
       if credEnv != "" {
-        log.Debugf("Loading credentials '%s' from env variable '%s'.", credEnv, cred)
-        a.Credentials[cred] = credEnv
+        log.Debugf("Loading credentials '%s' from env variable '%s'.", name, envVar)
+        a.Credentials[name] = credEnv
       } else {
-        return fmt.Errorf("Env variable '%s' not set.", cred)
+        return fmt.Errorf("Env variable '%s' not set.", envVar)
       }
     }
   }
