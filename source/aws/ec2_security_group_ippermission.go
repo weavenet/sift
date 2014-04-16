@@ -11,9 +11,9 @@ import (
 )
 
 type ec2SecurityGroupIpPermissionStateResponse struct {
-  Id        string                        `json:"id"`
-  PartentId string                        `json:"parent_id"`
-  Data      securityGroupIpPermissionData `json:"data"`
+  Id       string                        `json:"id"`
+  ParentId string                        `json:"parent_id"`
+  Data     securityGroupIpPermissionData `json:"data"`
 }
 
 type securityGroupIpPermissionData struct {
@@ -78,9 +78,9 @@ func processEc2SecurityGroupIpPermissionRequest(sr stateRequest) (string, error)
   res := []ec2SecurityGroupIpPermissionStateResponse{}
 
   for _, sg := range securityGroups.Groups {
-    for count, ipperm := range sg.IPPerms {
+    for c, ipperm := range sg.IPPerms {
       data := newEc2SecurityGroupIpPermissionStateResponseData(ipperm)
-      sr := newEc2SecurityGroupIpPermissionStateResponse(count, sg.Id, data)
+      sr := newEc2SecurityGroupIpPermissionStateResponse(strconv.Itoa(c), sg.Id, data)
       res = append(res, sr)
     }
   }
