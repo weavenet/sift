@@ -15,6 +15,7 @@ type ec2SecurityGroupStateResponse struct {
 }
 
 type securityGroupData struct {
+  Name  []string `json:"name"`
   VpcId []string `json:"vpc_id"`
 }
 
@@ -58,6 +59,7 @@ func processEc2SecurityGroupRequest(sr stateRequest) (string, error) {
   res := []ec2SecurityGroupStateResponse{}
   for _, sg := range securityGroups.Groups {
     sr := newEc2SecurityGroupStateResponse(sg.Id)
+    sr.Data.Name = []string{sg.Name}
     sr.Data.VpcId = []string{sg.VpcId}
     res = append(res, sr)
   }
