@@ -159,8 +159,8 @@ and **access_key_id**.
 ```json
 {
   "credentials" : {
-    "access_key_id"     : "$ACCESS_KEY_ID",
-    "secret_access_key" : "$SECRET_ACCESS_KEY"
+    "access_key_id"     : "$AWS_ACCESS_KEY_ID",
+    "secret_access_key" : "$AWS_SECRET_ACCESS_KEY"
   }
 }
 ```
