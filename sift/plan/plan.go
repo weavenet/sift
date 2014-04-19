@@ -6,7 +6,7 @@ import (
   log "github.com/cihub/seelog"
 )
 
-type plan struct {
+type Plan struct {
   Accounts map[string]map[string]account `json:"accounts"`
   Policies []policy                      `json:"policies"`
   Filters  map[string]planFilter         `json:"filters"`
@@ -14,8 +14,8 @@ type plan struct {
   Lists    map[string]list               `json:"lists"`
 }
 
-func NewPlan() *plan {
-  return &plan{
+func NewPlan() *Plan {
+  return &Plan{
     Lists:    map[string]list{},
     Accounts: map[string]map[string]account{},
     Filters:  map[string]planFilter{},
@@ -24,7 +24,7 @@ func NewPlan() *plan {
   }
 }
 
-func (p plan) Evaluations() ([]evaluation, error) {
+func (p Plan) Evaluations() ([]evaluation, error) {
   eos, err := p.createEvaluations()
   if err != nil {
     return []evaluation{}, err
@@ -37,7 +37,7 @@ func (p plan) Evaluations() ([]evaluation, error) {
   return eos, nil
 }
 
-func (p *plan) LoadJSON(data []byte) error {
+func (p *Plan) LoadJSON(data []byte) error {
   log.Tracef("Loading plan from JSON data '%s'.", string(data))
   if err := json.Unmarshal(data, p); err != nil {
     return err
@@ -46,7 +46,7 @@ func (p *plan) LoadJSON(data []byte) error {
   return nil
 }
 
-func (p *plan) LoadRepo(path string) error {
+func (p *Plan) LoadRepo(path string) error {
   log.Debugf("Loading repo from '%s'.", path)
   if !dirExists(path) {
     return fmt.Errorf("Repo directory does not exist.")
@@ -75,7 +75,7 @@ func (p *plan) LoadRepo(path string) error {
   return nil
 }
 
-func (p plan) createEvaluations() ([]evaluation, error) {
+func (p Plan) createEvaluations() ([]evaluation, error) {
   evaluations := []evaluation{}
 
   log.Debugf("Plan has %d policies to convert to evaluations.", len(p.Policies))
@@ -92,7 +92,7 @@ func (p plan) createEvaluations() ([]evaluation, error) {
   return evaluations, nil
 }
 
-func (p plan) scopeToAccounts(name string, scope string) []account {
+func (p Plan) scopeToAccounts(name string, scope string) []account {
   accounts := []account{}
   for _, a := range p.Accounts[name] {
     for _, s := range a.Scope {
@@ -117,7 +117,7 @@ func (p plan) scopeToAccounts(name string, scope string) []account {
   return accounts
 }
 
-func (p plan) sourceArguments(source string, name string) (args map[string][]string) {
+func (p Plan) sourceArguments(source string, name string) (args map[string][]string) {
   for k, v := range p.Sources[source].Arguments {
     if k == name {
       log.Debugf("Arguments '%s' found for '%s'.", name, source)
@@ -127,7 +127,7 @@ func (p plan) sourceArguments(source string, name string) (args map[string][]str
   return args
 }
 
-func (p plan) convertPlanFiltersToEvaluationFilters(filters map[string]string) (map[string]filter, error) {
+func (p Plan) convertPlanFiltersToEvaluationFilters(filters map[string]string) (map[string]filter, error) {
   evaluationFilters := map[string]filter{}
 
   for key, value := range filters {
@@ -168,7 +168,7 @@ func (p plan) convertPlanFiltersToEvaluationFilters(filters map[string]string) (
   return evaluationFilters, nil
 }
 
-func (p plan) setDynamicValues(data map[string]interface{}) (map[string][]string, error) {
+func (p Plan) setDynamicValues(data map[string]interface{}) (map[string][]string, error) {
   r := map[string][]string{}
   for name, value := range data {
     log.Tracef("Setting dynamic item '%s'.", name)
@@ -181,7 +181,7 @@ func (p plan) setDynamicValues(data map[string]interface{}) (map[string][]string
   return r, nil
 }
 
-func (p plan) setDynamicValue(value interface{}) (values []string, err error) {
+func (p Plan) setDynamicValue(value interface{}) (values []string, err error) {
   if value == nil {
     return values, nil
   }

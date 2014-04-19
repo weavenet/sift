@@ -16,7 +16,7 @@ func newRepo(path string) *repo {
   return &repo{path: path}
 }
 
-func (r *repo) loadAccounts(p *plan) error {
+func (r *repo) loadAccounts(p *Plan) error {
   path := r.accountsPath()
   if !dirExists(path) {
     return fmt.Errorf("Accounts directory does not exist in repo.")
@@ -39,7 +39,7 @@ func (r *repo) loadAccounts(p *plan) error {
   return nil
 }
 
-func (r *repo) loadAccountsFromDir(path string, p *plan) error {
+func (r *repo) loadAccountsFromDir(path string, p *Plan) error {
   fp := r.accountsPath() + "/" + path
   log.Debugf("Loading accounts from directory '%s'.", fp)
   accountFiles, err := ioutil.ReadDir(fp)
@@ -78,7 +78,7 @@ func (r *repo) loadAccountsFromDir(path string, p *plan) error {
   return nil
 }
 
-func (r *repo) loadLists(p *plan) error {
+func (r *repo) loadLists(p *Plan) error {
   if !dirExists(r.listsPath()) {
     log.Debugf("Lists directory does not exist in repo, skipping.")
     return nil
@@ -98,7 +98,7 @@ func (r *repo) loadLists(p *plan) error {
   return nil
 }
 
-func (r *repo) loadListsFromDir(path string, p *plan) error {
+func (r *repo) loadListsFromDir(path string, p *Plan) error {
   lp := r.listsPath() + "/" + path
   log.Debugf("Loading list from '%s'.", lp)
   listFiles, err := ioutil.ReadDir(lp)
@@ -139,7 +139,7 @@ func (r *repo) loadListsFromDir(path string, p *plan) error {
   return nil
 }
 
-func (r *repo) loadSources(p *plan) error {
+func (r *repo) loadSources(p *Plan) error {
   log.Debugf("Loading sources from '%s'.", r.sourcesPath())
   sourceDirs, err := ioutil.ReadDir(r.sourcesPath())
   if err != nil {
@@ -170,7 +170,7 @@ func (r *repo) loadSources(p *plan) error {
   return nil
 }
 
-func (r *repo) loadFilters(p *plan) error {
+func (r *repo) loadFilters(p *Plan) error {
   if !dirExists(r.filtersPath()) {
     log.Debugf("Filters directory does not exist in repo, skipping.")
     return nil
@@ -210,7 +210,7 @@ func (r *repo) loadFilters(p *plan) error {
   return nil
 }
 
-func (r *repo) loadPolicies(p *plan) error {
+func (r *repo) loadPolicies(p *Plan) error {
   path := r.policiesPath()
   log.Debugf("Loading policies from '%s'.", path)
   if !dirExists(path) {

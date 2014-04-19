@@ -15,7 +15,7 @@ type policy struct {
   Reports       map[string]interface{}            `json:"reports"`
 }
 
-func (pol policy) toEvaluations(p plan) ([]evaluation, error) {
+func (pol policy) toEvaluations(p Plan) ([]evaluation, error) {
   evaluations := []evaluation{}
 
   log.Debugf("Evaluation source '%s'.", pol.Source)
@@ -50,7 +50,7 @@ func (pol policy) collectionName() string {
   return strings.Split(pol.Source, "_")[len(strings.Split(pol.Source, "_"))-1]
 }
 
-func (pol policy) loadAccountsFromPlan(p plan) ([]account, error) {
+func (pol policy) loadAccountsFromPlan(p Plan) ([]account, error) {
   scope := pol.Scope
   log.Tracef("Loading accounts from '%s' scoped to '%s'.", pol.accountName(), scope)
 
@@ -61,7 +61,7 @@ func (pol policy) loadAccountsFromPlan(p plan) ([]account, error) {
   return evaluationAccounts, nil
 }
 
-func (pol policy) buildEvaluations(accounts []account, arguments map[string][]string, p plan) ([]evaluation, error) {
+func (pol policy) buildEvaluations(accounts []account, arguments map[string][]string, p Plan) ([]evaluation, error) {
   evaluations := []evaluation{}
 
   log.Tracef("Loading filters '%s'.", pol.Filters)
@@ -98,7 +98,7 @@ func (pol policy) buildEvaluations(accounts []account, arguments map[string][]st
   return evaluations, nil
 }
 
-func (pol policy) buildEvaluation(a account, filters map[string]filter, p plan) (evaluation, error) {
+func (pol policy) buildEvaluation(a account, filters map[string]filter, p Plan) (evaluation, error) {
   log.Tracef("Building evaluation for account '%s' with no arguments.", a)
   e := newEvaluation()
   for k, v := range a.Credentials {
@@ -131,7 +131,7 @@ func (pol policy) buildEvaluation(a account, filters map[string]filter, p plan) 
   return *e, nil
 }
 
-func (pol policy) parseVerifications(p plan) (r map[string]map[string][]string, err error) {
+func (pol policy) parseVerifications(p Plan) (r map[string]map[string][]string, err error) {
   r = map[string]map[string][]string{}
   for attribute, data := range pol.Verifications {
     r[attribute] = map[string][]string{}
