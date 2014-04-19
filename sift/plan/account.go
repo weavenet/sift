@@ -10,6 +10,7 @@ import (
 type account struct {
   Credentials map[string]string `json:"credentials"`
   Scope       []string          `json:"scope"`
+  Name        string            `json:"name"`
 }
 
 func newAccount() *account {

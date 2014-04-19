@@ -160,6 +160,7 @@ and **access_key_id**.
 
 ```json
 {
+  "name" : "my_aws_account",
   "credentials" : {
     "access_key_id"     : "$AWS_ACCESS_KEY_ID",
     "secret_access_key" : "$AWS_SECRET_ACCESS_KEY"
@@ -173,6 +174,7 @@ be targeted by specific policies. For example, you can put the above account in 
 
 ```json
 {
+  "name" : "my_aws_account",
   "credentials" : {
     "key"    : "abc",
     "secret" : "123"
