@@ -27,9 +27,9 @@ var random *rand.Rand = rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
 func (c cacheStateLoader) loadStates() (err error) {
   // Channel of contexts to be processed
   // contexts waiting on parents are put back on the end of the queue
-  queueChan := make(chan *context, len(c.cache.Contexts()))
+  queueChan := make(chan *context, len(c.cache.Contexts))
   go func() {
-    for _, c := range c.cache.Contexts() {
+    for _, c := range c.cache.Contexts {
       queueChan <- c
     }
   }()
@@ -55,7 +55,7 @@ func (c cacheStateLoader) loadStates() (err error) {
 }
 
 func (c cacheStateLoader) processQueue(queueChan chan *context, timeoutChan chan bool, statusChan chan bool) error {
-  contextCount := len(c.cache.Contexts())
+  contextCount := len(c.cache.Contexts)
   resultChan := make(chan error, contextCount)
   resultCount := 0
 
